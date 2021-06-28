@@ -56,7 +56,7 @@ const BottomTab = (props) => {
                         accessibilityLabel={options.tabBarAccessibilityLabel}
                         testID={options.tabBarTestID}
                         onPress={onPress}
-                        style={styles.buttonNav}
+                        style={{alignItems:'center', width:'100%'}}
                         >
                             <Icon
                                 animated={true}
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     }, 
     buttonNav:{
         width:'50%',
-        alignItems:'center'
+        alignItems:'center',
     },
     bubbleMap:{
         position:'absolute',
