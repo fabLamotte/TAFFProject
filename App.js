@@ -19,10 +19,10 @@ const App = () => {
         initialRouteName='Home'
         tabBar={(props, index) => <BottomTab key={index} {...props} />} 
       >
-          <Tab.Screen name="Profil">
+          <Tab.Screen name="Profile">
             {() => <Profil />}
           </Tab.Screen>
-          <Tab.Screen name="Map">
+          <Tab.Screen name="Carte">
             {() => <Map />}
           </Tab.Screen>
           <Tab.Screen name="Covoiturage">
