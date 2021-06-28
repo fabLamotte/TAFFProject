@@ -56,7 +56,7 @@ const BottomTab = (props) => {
                         accessibilityLabel={options.tabBarAccessibilityLabel}
                         testID={options.tabBarTestID}
                         onPress={onPress}
-                        style={{alignItems:'center', width:'100%'}}
+                        style={{alignItems:'center', width:'100%', zIndex:1}}
                         >
                             <Icon
                                 animated={true}
@@ -137,7 +137,8 @@ const styles = StyleSheet.create({
         borderRadius:100,
         borderWidth:2,
         borderColor:'white',
-        alignItems:'center'
+        alignItems:'center',
+        zIndex:2
     },
     iconName:{
         textAlign:'center',
