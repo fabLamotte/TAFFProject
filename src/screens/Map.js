@@ -1,13 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import Geolocation from '@react-native-community/geolocation'
-
-// async function fetchMapData() {
-//     const response = await fetch('http://bano.openstreetmap.fr/data/');
-//     console.log(response);
-//     return await response.json();
-// }
 
 MapboxGL.setAccessToken('sk.eyJ1IjoidGhpYmF1bHQtaGJzZGV2IiwiYSI6ImNrcWhybWd0bzBlbm8yb254ZmJycnViczEifQ.s-13ZSWVt4vrl00hZizGaw')
 
@@ -23,7 +17,6 @@ const Map = () => {
     return (
         <View style={styles.container}>
             <MapboxGL.MapView
-                centerCoordinate={[lonData, latData]}
                 localizeLabels={true}
                 style={styles.map}
             />
@@ -35,8 +28,8 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
     },
-    content:{
-        height:'90%',
+    map:{
+        flex: 1,
     }
 })
 

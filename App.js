@@ -16,7 +16,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName='Carte'
+        initialRouteName='Profile'
         tabBar={(props, index) => <BottomTab key={index} {...props} />} 
       >
           <Tab.Screen name="Profile">
