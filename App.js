@@ -1,8 +1,10 @@
 import React from 'react'
+import { StyleSheet } from 'react-native'
 
 import Profil from './src/screens/Profil'
 import Map from './src/screens/Map'
 import Covoiturage from './src/screens/Covoiturage'
+import BottomTab from './src/components/BottomTab'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -13,13 +15,28 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Profil" component={Profil} />
-        <Tab.Screen name="Map" component={Map} />
-        <Tab.Screen name="Covoiturage" component={Covoiturage} />
+      <Tab.Navigator
+        initialRouteName='Carte'
+        tabBar={(props, index) => <BottomTab key={index} {...props} />} 
+      >
+          <Tab.Screen name="Profile">
+            {() => <Profil />}
+          </Tab.Screen>
+          <Tab.Screen name="Carte">
+            {() => <Map />}
+          </Tab.Screen>
+          <Tab.Screen name="Covoiturage">
+            {() => <Covoiturage />}
+          </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
   )
 }
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1
+  }
+})
 
 export default App

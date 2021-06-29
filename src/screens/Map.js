@@ -27,17 +27,16 @@ const Map = () => {
                 localizeLabels={true}
                 style={styles.map}
             />
-        </View>
-    )
-}
+            </View>
+    )}
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
 
-    map: {
-        flex: 1
+    container:{
+        flex:1,
+    },
+    content:{
+        height:'90%',
     }
 })
 
