@@ -1,7 +1,10 @@
 import React from 'react'
 import {StyleSheet, View, Text } from 'react-native'
 
-const ParamsProfil = () => {
+const ParamsProfil = ({route}) => {
+
+const ParamsProfil = route.params
+console.log(ParamsProfil)
 
   return (
     <View style={styles.container}>
