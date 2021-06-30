@@ -9,27 +9,29 @@ import BottomTab from './src/components/BottomTab'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
+
 const Tab = createBottomTabNavigator()
 
 const App = () => {
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName='Carte'
-        tabBar={(props, index) => <BottomTab key={index} {...props} />} 
-      >
-          <Tab.Screen name="Profile">
-            {() => <Profil />}
-          </Tab.Screen>
-          <Tab.Screen name="Carte">
-            {() => <Map />}
-          </Tab.Screen>
-          <Tab.Screen name="Covoiturage">
-            {() => <Covoiturage />}
-          </Tab.Screen>
-      </Tab.Navigator>
-    </NavigationContainer>
+    
+      <NavigationContainer>
+        <Tab.Navigator
+          initialRouteName='Carte'
+          tabBar={(props, index) => <BottomTab key={index} {...props} />} 
+        >
+            <Tab.Screen name="Profile">
+              {() => <Profil />}
+            </Tab.Screen>
+            <Tab.Screen name="Carte">
+              {() => <Map />}
+            </Tab.Screen>
+            <Tab.Screen name="Covoiturage">
+              {() => <Covoiturage />}
+            </Tab.Screen>
+        </Tab.Navigator>
+      </NavigationContainer>
   )
 }
 
