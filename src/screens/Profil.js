@@ -70,11 +70,71 @@ const Profil = () => {
         img: 'imgDefault.jpg',
         going: true,
         carPooling: false,
+        },
+        {
+        id: 6,
+        name: 'Musee du Louvre',
+        date: 'date',
+        address: 'rue de Rivoli, 75001 Paris',
+        partaker: 16,
+        img: 'imgDefault.jpg',
+        going: false,
+        carPooling: true,
+        },
+        {
+        id: 7,
+        name: 'Parc Asterix',
+        date: 'date',
+        address: '60128 Plailly',
+        partaker: 24,
+        img: 'imgDefault.jpg',
+        going: true,
+        carPooling: false,
+        },
+        {
+        id: 8,
+        name: 'Musee du Louvre',
+        date: 'date',
+        address: 'rue de Rivoli, 75001 Paris',
+        partaker: 16,
+        img: 'imgDefault.jpg',
+        going: false,
+        carPooling: true,
+        },
+        {
+        id: 9,
+        name: 'Parc Asterix',
+        date: 'date',
+        address: '60128 Plailly',
+        partaker: 24,
+        img: 'imgDefault.jpg',
+        going: true,
+        carPooling: false,
+        },
+        {
+        id: 10,
+        name: 'Musee du Louvre',
+        date: 'date',
+        address: 'rue de Rivoli, 75001 Paris',
+        partaker: 16,
+        img: 'imgDefault.jpg',
+        going: false,
+        carPooling: true,
+        },
+        {
+        id: 11,
+        name: 'Parc Asterix',
+        date: 'date',
+        address: '60128 Plailly',
+        partaker: 24,
+        img: 'imgDefault.jpg',
+        going: true,
+        carPooling: false,
         }
     ]
 
 const renderItem =  ({item})  => (
-    <View>
+    <View style={{width: '100%'}}>
         <View style={{flexDirection: 'row' }}>
             <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}} >
                 <Avatar.Image  size={70} source={require(`../assets/imgDefault.jpg`)} />
@@ -96,7 +156,7 @@ const renderItem =  ({item})  => (
 
 
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.containerTop}>
                 <View style={styles.avatar}>
                     <Avatar.Icon size={60} icon='account' color='#8DC56C' style={{backgroundColor: '#fff'}}/>
@@ -122,12 +182,11 @@ const renderItem =  ({item})  => (
                         title="Voir toute la liste"
                         onPress={() => console.log("from listItem 1")} 
                         />
-                   
                     <FlatList 
                     data={test}
                     renderItem={renderItem}
-                    keyExtractor={item => item.id}/>
-
+                    keyExtractor={item => item.id}
+                    style={{flexgrow:0, height: 275}}/>
                 </List.Accordion>
                 </List.Section>
                 <List.Section style={{width: '100%'}}>
@@ -147,18 +206,18 @@ const renderItem =  ({item})  => (
                         <FlatList 
                         data={test}
                         renderItem={renderItem}
-                        keyExtractor={item => item.id}/>
+                        keyExtractor={item => item.id}
+                        style={{flexgrow:0, height: 300}}/>
 
                     </List.Accordion>
                 </List.Section>
-        </ScrollView>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginBottom: 40,
     },
     containerTop: {
         flexDirection: 'row',
