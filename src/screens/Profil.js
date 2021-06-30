@@ -1,14 +1,19 @@
 import React, {useState} from 'react'
-import { View, StyleSheet, FlatList, ScrollView } from 'react-native'
+import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { Text, Title, Divider, Avatar, List } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-const Profil = () => {
+const Profil = ({navigation}) => {
     const [expandedA, setExpandedA] = useState(true);
     const [expandedB, setExpandedB] = useState(true);
     const handlePressA = () => setExpandedA(!expandedA);
     const handlePressB = () => setExpandedB(!expandedB);
 
+    const profilTest = {
+        avatar: 'string',
+        firstname: 'Fabien',
+        lastname: 'Lamotte'
+    }
 
     const test = [
         {
@@ -145,9 +150,11 @@ const renderItem =  ({item})  => (
                 <Text style={styles.partaker}>{item.partaker} participants</Text>
                 {!item.going ? <Text style={styles.going}>J'ai changé d'avis, je n'irai pas a cet evenement</Text> : null}
             </View>
-            <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
+            <View
+                style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
                 <Icon size={40} name='car'
-                    color={ item.carPooling ? '#6D9953' : '#C4585B'} />
+                    color={ item.carPooling ? '#6D9953' : '#C4585B'}
+                     />
             </View>
         </View>
     <Divider style={{marginTop: 5, marginBottom: 5}} />
@@ -162,12 +169,13 @@ const renderItem =  ({item})  => (
                     <Avatar.Icon size={60} icon='account' color='#8DC56C' style={{backgroundColor: '#fff'}}/>
                 </View>
                 <View style={styles.name}>
-                    <Title style={{fontSize: 30}}>Fabien</Title>
-                    <Title style={{fontSize: 30}}>Lamotte</Title>
+                    <Title style={{fontSize: 30}}>{profilTest.firstname}</Title>
+                    <Title style={{fontSize: 30}}>{profilTest.lastname}</Title>
                 </View >
-                <View style={styles.icon}>
+                <TouchableOpacity style={styles.icon}
+                onPress={() => navigation.navigate('ParamsProfil', {profilTest})}>
                     <Icon size={35} name='cog'/>
-                </View>
+                </TouchableOpacity>
             </View>
             <List.Section style={{width: '100%'}}>
                 <List.Accordion style={styles.accordion}
