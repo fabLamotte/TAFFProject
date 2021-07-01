@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import MapboxGL from '@react-native-mapbox-gl/maps'
-import Geolocation from '@react-native-community/geolocation'
+import Geolocation from 'react-native-geolocation-service'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const AnnotationContent = ({
