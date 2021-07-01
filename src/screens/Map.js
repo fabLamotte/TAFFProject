@@ -48,11 +48,7 @@ const Map = () => {
         <View style={styles.container}>
             <MapboxGL.MapView localizeLabels={true} style={styles.map}  >
                 <MapboxGL.Camera zoomLevel={16} animationMode={'flyTo'} animationDuration={0} centerCoordinate={[lonData, latData]} />
-                <MapboxGL.MarkerView coordinate={[lonData, latData]}>
-                    <View>
-                        <AnnotationContent />
-                    </View>
-                </MapboxGL.MarkerView>
+                    <MapboxGL.UserLocation animated={true} renderMode={'native'} />
             </MapboxGL.MapView>
         </View>
     )
