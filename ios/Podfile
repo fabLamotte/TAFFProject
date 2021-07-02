@@ -5,6 +5,14 @@ platform :ios, '10.0'
 
 target 'taffProject' do
   config = use_native_modules!
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-LocationAccuracy', :path => "#{permissions_path}/LocationAccuracy"
+  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
+  pod 'Permission-Motion', :path => "#{permissions_path}/Motion"
+  pod 'Permission-FaceID', :path => "#{permissions_path}/FaceID"
+  
+  #Mapbox
+  pod 'react-native-mapbox-gl', :path => '../node_modules/@react-native-mapbox-gl/maps'
 
   use_react_native!(
     :path => config[:reactNativePath],

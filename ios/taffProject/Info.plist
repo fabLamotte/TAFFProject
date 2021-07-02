@@ -68,6 +68,10 @@
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
 	</array>
+	<key>NSMotionUsageDescription</key>
+	<string>Cette permission nous permet de savoir si vous marchez ou non</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Utiliser FaceID vous permet de vous connecter de façon rapide et sécurisée</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
