@@ -1,66 +1,30 @@
-import React from 'react'
-import { StyleSheet } from 'react-native'
+import React, {useReducer, useMemo} from 'react'
 
-import Profil from './src/screens/Profil'
-import ParamsProfil from './src/screens/ParamsProfil'
-import Map from './src/screens/Map'
-import Covoiturage from './src/screens/Covoiturage'
-import BottomTab from './src/components/BottomTab'
+import RootNavigation from './src/navigation/RootNavigation'
 
-import { NavigationContainer } from '@react-navigation/native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { createStackNavigator } from '@react-navigation/stack';
-
-const Tab = createBottomTabNavigator()
-const Stack = createStackNavigator();
-
-
-export  const ProfilStackNav = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen 
-        options={{headerShown: false}}
-        name="Profil"
-        title="Profil"
-        component={Profil} />
-      <Stack.Screen
-        options={{headerTitle: "Paramètres de profil"}}
-        name="ParamsProfil"
-        title="ParamsProfil"
-        component={ParamsProfil} />
-
-    </Stack.Navigator>
-  )
-}
-
+import { AuthContext } from './src/context/AuthContext'
+import { GetActions } from './src/actions/AuthActions'
+import { Reducer } from './src/reducers/Reducer'
+import { GetApp } from './src/database/GetRealmApp'
 
 const App = () => {
+  const [state, dispatch] = useReducer(Reducer, {
+    isLoading: true,
+    isSignout: false,
+    userId: null,
+  })
+
+  const LogContext = useMemo(() => {
+    const app = GetApp()
+    console.log(app)
+    return GetActions(app, dispatch)
+  }, [])
 
   return (
-    
-      <NavigationContainer>
-        <Tab.Navigator
-          initialRouteName='Carte'
-          tabBar={(props, index) => <BottomTab key={index} {...props} />} 
-        >
-            <Tab.Screen name="Profile">
-              {() => <ProfilStackNav />}
-            </Tab.Screen>
-            <Tab.Screen name="Carte">
-              {() => <Map />}
-            </Tab.Screen>
-            <Tab.Screen name="Covoiturage">
-              {() => <Covoiturage />}
-            </Tab.Screen>
-        </Tab.Navigator>
-      </NavigationContainer>
+    <AuthContext.Provider value={LogContext}>
+      <RootNavigation userId={state.userId} />
+    </AuthContext.Provider>
   )
 }
-
-const styles = StyleSheet.create({
-  container:{
-    flex:1
-  }
-})
 
 export default App
