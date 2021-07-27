@@ -12,30 +12,32 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 const Tab = createBottomTabNavigator()
 
 const AppNavigation = () => {
-    return (
-        <NavigationContainer>
-          <Tab.Navigator
-            initialRouteName='Carte'
-            tabBar={(props, index) => <BottomTab key={index} {...props} />} 
-          >
-              <Tab.Screen name="Profile">
-                {() => <ProfilStackNav />}
-              </Tab.Screen>
-              <Tab.Screen name="Carte">
-                {() => <Map />}
-              </Tab.Screen>
-              <Tab.Screen name="Covoiturage">
-                {() => <Covoiturage />}
-              </Tab.Screen>
-          </Tab.Navigator>
-        </NavigationContainer>
-    )
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName='Carte'
+        tabBar={(props, index) => 
+          <BottomTab key={index} {...props} />
+        }
+      >
+        <Tab.Screen name="Profile">
+          {() => <ProfilStackNav />}
+        </Tab.Screen>
+        <Tab.Screen name="Carte">
+          {() => <Map />}
+        </Tab.Screen>
+        <Tab.Screen name="Covoiturage">
+          {() => <Covoiturage />}
+        </Tab.Screen>
+      </Tab.Navigator>
+    </NavigationContainer>
+  )
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1
-    }
+  container: {
+    flex: 1
+  }
 })
 
 export default AppNavigation

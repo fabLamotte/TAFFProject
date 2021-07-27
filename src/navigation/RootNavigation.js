@@ -4,9 +4,7 @@ import AuthNavigation from './AuthNavigation'
 import AppNavigation from './AppNavigation'
 
 const RootNavigation = (props) => {
-    const {
-        userId
-    } = props
+    const userId = true
 
     return userId?(
         <AppNavigation />
