@@ -5,8 +5,6 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-import { AuthContext } from './../context/AuthContext'
-
 const loginValidationSchema = yup.object().shape({
     email: yup
         .string()
@@ -33,12 +31,6 @@ const Inscriptions = () => {
 
     const toggleShow = () => {
         hidePassword ? setHidePassword(false) : setHidePassword(true)
-    }
-
-    const { signUp } = useContext(AuthContext)
-
-    function registerUser(data) {
-        signUp(data)
     }
 
     return (

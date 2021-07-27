@@ -2,8 +2,6 @@ import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform  } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-import {AuthContext} from './../context/AuthContext'
-
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Formik } from 'formik'
@@ -31,18 +29,6 @@ const Connexion = () => {
 
     const toggleShow = () => {
         hidePassword ? setHidePassword(false) : setHidePassword(true)
-    }
-    
-    const {signIn} = useContext(AuthContext)
-
-    const onSignIn = async(data) => {
-        try{
-            const jsonValue = JSON.stringify(data)
-            await AsyncStorage.setItem('user', jsonValue)
-        } catch(e){
-            console.log(e)
-        }
-        signIn(data)
     }
 
     // Fonction récupération données de AsyncStorage
