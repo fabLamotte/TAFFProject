@@ -4,6 +4,8 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-nativ
 import { Formik } from 'formik'
 import * as yup from 'yup'
 import Icon from 'react-native-vector-icons/Ionicons'
+import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore'
 
 const loginValidationSchema = yup.object().shape({
     email: yup
@@ -23,6 +25,7 @@ const loginValidationSchema = yup.object().shape({
 const Inscriptions = () => {
 
     const [hidePassword, setHidePassword] = useState(true)
+    const [hideRepeatedPassword, setRepeatedPassword] = useState(true)
     const iconName =
         hidePassword ?
             Platform.OS === 'ios' ? "eye-outline" : "eye-sharp"
@@ -32,6 +35,32 @@ const Inscriptions = () => {
     const toggleShow = () => {
         hidePassword ? setHidePassword(false) : setHidePassword(true)
     }
+    const AddUser = async (values) => {
+        console.log('chuisla')
+        const user = auth()
+            .createUserWithEmailAndPassword(values.email, values.password)
+            .then((response) => {
+                console.log('ok')
+                firestore().collection('users').doc(auth().currentUser.uid).set({
+                    email: response.user.email,
+                    activity: []
+                })
+                    .then(() => {
+                    })
+                    .catch((error) => {
+                        console.error("Erreur lors de l'enregistrement de la tâche: ", error);
+                    })
+            })
+            .catch(error => {
+                console.log(error)
+                if (error.code === 'auth/email-already-in-use') {
+                    setErrorForm('Adressse mail déjà utilisée')
+                }
+                if (error.code === 'auth/invalid-email') {
+                    setErrorForm('Adresse mail invalide')
+                }
+            })
+    }
 
     return (
         <View style={styles.container}>
@@ -39,7 +68,7 @@ const Inscriptions = () => {
             <Formik
                 validationSchema={loginValidationSchema}
                 initialValues={{ email: '', password: '', repeatedPassword: '' }}
-                onSubmit={values => registerUser(values)}
+                onSubmit={values => AddUser(values)}
             >
                 {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
                     <>
@@ -84,7 +113,7 @@ const Inscriptions = () => {
                                 onChangeText={handleChange('repeatedPassword')}
                                 onBlur={handleBlur('repeatedPassword')}
                                 value={values.repeatedPassword}
-                                secureTextEntry
+                                secureTextEntry={hideRepeatedPassword}
                             />
                             <Icon name={iconName} style={styles.icon} size={20} color='black' onPress={() => toggleShow()} />
                         </View>
@@ -133,20 +162,20 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 5,
         marginTop: 10,
-        width:200
+        width: 200
     },
     textButton: {
         color: 'white',
         fontWeight: 'bold',
-        textAlign:'center'
+        textAlign: 'center'
     },
-    form:{
-        marginVertical:20,
-        width:'100%'
+    form: {
+        marginVertical: 20,
+        width: '100%'
     },
-    zoneSubmit:{
-        width:'100%',
-        alignItems:'center',
+    zoneSubmit: {
+        width: '100%',
+        alignItems: 'center',
     }
 })
 

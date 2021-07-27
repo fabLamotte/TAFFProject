@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "899142120617",
+    "project_id": "taffproject-b4e92",
+    "storage_bucket": "taffproject-b4e92.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899142120617:android:7b2afa8e9fd34d7f3c65b8",
+        "android_client_info": {
+          "package_name": "com.taffproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "899142120617-bums1qico2k1nif3n3u72pnt55l1chn5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taffproject",
+            "certificate_hash": "44d6dfdb69778358e8ceca3cdabf2819b6056bbf"
+          }
+        },
+        {
+          "client_id": "899142120617-pt79i4mi1dperqihpagbhe8dn27uquhi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNnCL1_Gy1tZkEIQmVlp7-5ABU6tuRgfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "899142120617-pt79i4mi1dperqihpagbhe8dn27uquhi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "899142120617-jvldlbdg2hqa7702afth0mie2t2p0m0q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "fr.taffproject.proxitouriste"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
