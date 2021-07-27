@@ -139,6 +139,7 @@ const Profil = ({navigation}) => {
     ]
 
 const renderItem =  ({item})  => (
+
     <View style={{width: '100%'}}>
         <View style={{flexDirection: 'row' }}>
             <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}} >
