@@ -32,7 +32,7 @@ const Map = () => {
 
     return (
         <View style={styles.container}>
-            <MapboxGL.MapView localizeLabels={true} style={styles.map}  >
+            <MapboxGL.MapView localizeLabels={true} style={styles.map} centerCoordinate={[lonData, latData]} >
                 <MapboxGL.Camera zoomLevel={16} animationMode={'flyTo'} animationDuration={0} centerCoordinate={[lonData, latData]} />
                     <MapboxGL.UserLocation animated={true} renderMode={'native'} />
             </MapboxGL.MapView>
