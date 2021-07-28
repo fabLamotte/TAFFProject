@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import MapboxGL from '@react-native-mapbox-gl/maps'
-import Geolocation from 'react-native-geolocation-service'
+import Geolocation, { requestAuthorization } from 'react-native-geolocation-service'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const AnnotationContent = ({
@@ -28,31 +28,13 @@ const Map = () => {
     console.log(latData)
     console.log(lonData)
 
-    const getHistoricMonumentBuildingsFromApi = async () => {
-        try {
-            let response = await fetch(
-                'https://heritage.toolforge.org/api/api.php?action=search&coord' + latData + ',' + lonData + '&radius=' + radiusData + '&stitem=total&format=json'
-            )
-            let jsonBuildings = await response.json();
-            console.log(jsonBuildings.monuments);
-        } catch (error) {
-            console.error(error)
-        }
-    }
-    
-    getHistoricMonumentBuildingsFromApi(latData, lonData);
-
     
 
     return (
         <View style={styles.container}>
-            <MapboxGL.MapView localizeLabels={true} style={styles.map}  >
+            <MapboxGL.MapView localizeLabels={true} style={styles.map} centerCoordinate={[lonData, latData]} >
                 <MapboxGL.Camera zoomLevel={16} animationMode={'flyTo'} animationDuration={0} centerCoordinate={[lonData, latData]} />
-                <MapboxGL.MarkerView coordinate={[lonData, latData]}>
-                    <View>
-                        <AnnotationContent />
-                    </View>
-                </MapboxGL.MarkerView>
+                    <MapboxGL.UserLocation animated={true} renderMode={'native'} />
             </MapboxGL.MapView>
         </View>
     )
