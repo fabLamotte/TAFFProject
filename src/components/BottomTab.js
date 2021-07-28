@@ -9,7 +9,7 @@ const BottomTab = (props) => {
         navigation
     } = props
 
-    var route = state.history[0].key.split("-")[0]
+    var route = state.index
 
     const iconProfile = Platform.OS === 'ios' ? "person-circle-outline" : "person-circle-sharp"
     const iconCarte = Platform.OS === 'ios' ? "navigate-circle-outline" : "navigate-circle-sharp"
@@ -19,42 +19,42 @@ const BottomTab = (props) => {
         <View style={styles.container}>
             <View style={styles.bubbleMap}>
                 <TouchableOpacity
-                opacityActivity={1}
+                activeOpacity={1}
                 key={0}
-                onPress={() => console.log('profile')}
+                onPress={() => navigation.navigate('Profile')}
                 style={[styles.mapButton, {paddingRight:20}]}>
                     <Icon
                         name={iconProfile}
                         size={50}
-                        color={route === 'Profile' ? '#cc2936' : '#FFF'}
+                        color={route === 0 ? '#cc2936' : '#FFF'}
                     />
                     <Text style={{ color: '#FFF' }}> Profil </Text>
                 </TouchableOpacity>
             </View>
             <View style={[styles.buttonNav]}>
                 <TouchableOpacity
-                opacityActivity={1}
+                activeOpacity={1}
                 key={1}
-                onPress={() => console.log('Carte')}
+                onPress={() => navigation.navigate('Carte')}
                 style={[styles.map]}>
                     <Icon
                         size={50}
                         name={iconCarte}
-                        color={route === 'Carte' ? '#cc2936' : '#FFF'}
+                        color={route === 1 ? '#cc2936' : '#FFF'}
                     />
                     <Text style={{ color: '#FFF' }}> Carte </Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.bubbleMap}>
                 <TouchableOpacity
-                opacityActivity={1}
+                activeOpacity={1}
                 key={2}
-                onPress={() => console.log('covoiturage')}
+                onPress={() => navigation.navigate('Covoiturage')}
                 style={[styles.mapButton, {paddingLeft:20}]}>
                     <Icon
                         name={iconCovoit}
                         size={50}
-                        color={route === "Covoiturage" ? '#cc2936' : '#FFF'}
+                        color={route === 2 ? '#cc2936' : '#FFF'}
                     />
                     <Text style={{ color: '#FFF' }}> Covoiturage </Text>
                 </TouchableOpacity>
