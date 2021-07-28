@@ -1,6 +1,6 @@
 import React from 'react'
-import {StyleSheet, View, TouchableOpacity, Text} from 'react-native'
-import Icon from 'react-native-vector-icons/dist/FontAwesome'
+import { StyleSheet, View, TouchableOpacity, Text, Platform } from 'react-native'
+import Icon from 'react-native-vector-icons/dist/Ionicons'
 
 const BottomTab = (props) => {
     const {
@@ -8,130 +8,98 @@ const BottomTab = (props) => {
         descriptors,
         navigation
     } = props
-    
-    return(
+
+    var route = state.history[0].key.split("-")[0]
+
+    const iconProfile = Platform.OS === 'ios' ? "person-circle-outline" : "person-circle-sharp"
+    const iconCarte = Platform.OS === 'ios' ? "navigate-circle-outline" : "navigate-circle-sharp"
+    const iconCovoit = Platform.OS === 'ios' ? "car-sport-outline" : "car-sport-sharp"
+
+    return (
         <View style={styles.container}>
-            {state.routes.map((route, index) => {
-                const {options} = descriptors[route.key];
-                const label =
-                options.tabBarLabel !== undefined
-                    ? options.tabBarLabel
-                    : options.title !== undefined
-                    ? options.title
-                    : route.name;
-                const isFocused = state.index === index;
-                let iconName;
-
-                switch (route.name) {
-                case 'Carte':
-                    iconName = "map-marker"
-                    break;
-                case 'Profile':
-                    iconName = "user"
-                    break;
-                case 'Covoiturage':
-                    iconName = "car"
-                    break;
-                }
-                const onPress = () => {
-                const event = navigation.emit({
-                    type: 'tabPress',
-                    target: route.key,
-                    canPreventDefault: true,
-                });
-
-                if (!isFocused && !event.defaultPrevented) 
-                {
-                    navigation.navigate(route.name);
-                }
-            };
-
-            
-            return route.name !== "Carte" ? (
-                <View style={styles.buttonNav}>
-                    <TouchableOpacity
-                        key={index}
-                        accessibilityRole="button"
-                        accessibilityState={isFocused ? {selected: true} : {}}
-                        accessibilityLabel={options.tabBarAccessibilityLabel}
-                        testID={options.tabBarTestID}
-                        onPress={onPress}
-                        style={{alignItems:'center', width:'100%', zIndex:1}}
-                        >
-                            <Icon
-                                animated={true}
-                                name={iconName}
-                                size={isFocused ? 35 : 30}
-                                color={isFocused ? '#cc2936' : '#FFF'}
-                            />
-                            <Text style={{color: isFocused ? '#cc2936' : '#FFF'}}> {route.name} </Text>
-                    </TouchableOpacity>
-                </View>
-                
-            ) : (
-                <View style={styles.bubbleMap}>
-                    <TouchableOpacity
-                        key={index}
-                        accessibilityRole="button"
-                        accessibilityState={isFocused ? {selected: true} : {}}
-                        accessibilityLabel={options.tabBarAccessibilityLabel}
-                        testID={options.tabBarTestID}
-                        onPress={onPress}
-                        style={styles.mapButton}
-                        >
-                            <Icon
-                                name={iconName}
-                                size={50}
-                                color={isFocused ? '#cc2936' : '#FFF'}
-                            /> 
-                            <Text style={{color: isFocused ? '#cc2936' : '#FFF'}}> {route.name} </Text>
-                    </TouchableOpacity>
-                </View>
-                )
-            })}
+            <View style={styles.bubbleMap}>
+                <TouchableOpacity
+                opacityActivity={1}
+                key={0}
+                onPress={() => console.log('profile')}
+                style={[styles.mapButton, {paddingRight:20}]}>
+                    <Icon
+                        name={iconProfile}
+                        size={50}
+                        color={route === 'Profile' ? '#cc2936' : '#FFF'}
+                    />
+                    <Text style={{ color: '#FFF' }}> Profil </Text>
+                </TouchableOpacity>
+            </View>
+            <View style={[styles.buttonNav]}>
+                <TouchableOpacity
+                opacityActivity={1}
+                key={1}
+                onPress={() => console.log('Carte')}
+                style={[styles.map]}>
+                    <Icon
+                        size={50}
+                        name={iconCarte}
+                        color={route === 'Carte' ? '#cc2936' : '#FFF'}
+                    />
+                    <Text style={{ color: '#FFF' }}> Carte </Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.bubbleMap}>
+                <TouchableOpacity
+                opacityActivity={1}
+                key={2}
+                onPress={() => console.log('covoiturage')}
+                style={[styles.mapButton, {paddingLeft:20}]}>
+                    <Icon
+                        name={iconCovoit}
+                        size={50}
+                        color={route === "Covoiturage" ? '#cc2936' : '#FFF'}
+                    />
+                    <Text style={{ color: '#FFF' }}> Covoiturage </Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container:{
-        height:'10%',
-        width:'100%',
-        backgroundColor:'#8DC56C',
+        position:'relative',
+        flexDirection:'row',
         justifyContent:'space-around',
         alignItems:'center',
-        borderTopWidth:2,
-        borderTopColor:'white',
-        flexDirection:'row'
-    }, 
-    buttonNav:{
-        width:'50%',
-        alignItems:'center',
+        width:'100%',
+        backgroundColor:'green',
     },
     bubbleMap:{
+        justifyContent:'space-around',
+        alignItems:'center',
+        width:'50%'
+    },
+    buttonNav:{
         position:'absolute',
+        justifyContent:'center',
+        alignItems:'center',
+        width:'100%',
+        left:0,
+    },
+    mapButton:{
+        justifyContent:'space-around',
         alignItems:'center',
         width:'100%',
     },
-    mapButton:{
+    map:{
+        marginTop:-50,
         height:100,
         width:100,
-        backgroundColor:'#8DC56C',
-        marginBottom:70,
-        justifyContent:'center',
-        borderRadius:100,
-        borderWidth:2,
+        borderRadius:50,
+        borderWidth:1,
         borderColor:'white',
+        backgroundColor:'green',
+        justifyContent:'center',
         alignItems:'center',
-        zIndex:2
-    },
-    iconName:{
-        textAlign:'center',
-        color:'white',
-    },
-    focused:{
-        color:'red'
-    },
+    }
 })
 
 export default BottomTab
