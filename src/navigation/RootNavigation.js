@@ -18,7 +18,7 @@ const RootNavigation = (props) => {
     //     <AuthNavigation />
     // )
 
-    if (userId == null) {
+    if (userId == [null]) {
         return (
             <AuthNavigation />
         )
