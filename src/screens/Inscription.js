@@ -35,12 +35,14 @@ const Inscriptions = () => {
     const toggleShow = () => {
         hidePassword ? setHidePassword(false) : setHidePassword(true)
     }
+
     const AddUser = async (values) => {
-        console.log('chuisla')
+        
+        // Ajout de l'utilisateur dans l'application
         const user = auth()
             .createUserWithEmailAndPassword(values.email, values.password)
             .then((response) => {
-                console.log('ok')
+                // Ajout du document de l'utilisateur dans la collection user
                 firestore().collection('users').doc(auth().currentUser.uid).set({
                     email: response.user.email,
                     activity: []

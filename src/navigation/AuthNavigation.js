@@ -8,12 +8,28 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 const Tab = createBottomTabNavigator()
 
-const AuthNavigation = () => {
+const AuthNavigation = (props) => {
+    const {
+        initialized,
+        setInitialized,
+        user,
+        setUser
+    } = props
+
     return (
         <NavigationContainer>
             <Tab.Navigator initialRouteName="Connexion">
-                <Tab.Screen name="Connexion" component={Connexion} />
-                <Tab.Screen name="Inscription" component={Inscription} />
+                <Tab.Screen name="Connexion">
+                    {() => <Connexion 
+                    initialized={initialized} 
+                    setInitialized={setInitialized} 
+                    user={user} 
+                    setUser={setUser}   
+                />}
+                </Tab.Screen>
+                <Tab.Screen name="Inscription">
+                    {() => <Inscription />}
+                </Tab.Screen>
             </Tab.Navigator>
         </NavigationContainer>
     )
