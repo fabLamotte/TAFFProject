@@ -1,8 +1,9 @@
 import { data } from 'browserslist'
 import React from 'react'
 import { View, StyleSheet, FlatList, Image } from 'react-native'
-import { Text, TextInput, Title, Divider, Avatar, List } from 'react-native-paper'
+import { Text, TextInput, Title, Divider, Avatar, List, Button } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Modal from './modal'
 
 
 
@@ -12,19 +13,23 @@ const CovoiturageItem = ({item}) => {
         <View style={styles.container}>
         <View style={styles.mainContainer}>
             <View style={styles.imageAvatar}>
-            <Avatar.Image  size={90} source={require(`../assets/imgDefault.jpg`)} />
+            <Avatar.Image  size={90} source={item.img}/>
             </View>
 
             <View style={styles.textCovoiturage}>
             <Text style={styles.title}>{item.name}</Text> 
             <Text>{item.address}</Text>
-            <Text style={styles.partaker}>{item.partaker}participants</Text>
+            <Text style={styles.partaker}>{item.partaker}place</Text>
             
-            {!item.going ? <Text style={styles.going}>J'ai changé d'avis, je n'irai pas a cet evenement</Text> : null}
+            {!item.going ? <Text style={styles.going}>J'y vais!</Text> : null}
 
             </View>
             <View
                 style={styles.iconsCar}>
+                    
+    <Button style={{marginTop: 30}} onPress={showModal}>
+        Show
+      </Button>
                 <Icon size={40} name='car'
                     color={ item.carPooling ? '#6D9953' : '#C4585B'}
                      />
@@ -36,10 +41,10 @@ const CovoiturageItem = ({item}) => {
 
 const styles = StyleSheet.create({
     container:{
-        padding:10
+        padding:10,
     },
     mainContainer: {
-      height:100,
+      height:120,
       flexDirection:'row',
     
     },

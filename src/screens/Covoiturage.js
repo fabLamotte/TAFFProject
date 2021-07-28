@@ -1,20 +1,21 @@
-import React from 'react'
-import { View, StyleSheet, FlatList,  } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, StyleSheet, FlatList, Button,  } from 'react-native'
 import { Text, TextInput, Title, Divider, Avatar, List } from 'react-native-paper'
 import CovoiturageData from '../constant/covoiturageData'
 import CovoiturageItem from '../components/CovoiturageItem'
+import { Assets } from '@react-navigation/stack'
 
 
 const Covoiturage = ({}) => {
 
-    const CovoiturageData = [
+    const CovoiturageArrive = [
         {
         id: 0,
         name: 'Musee du Louvre',
         date: 'date',
         address: 'rue de Rivoli, 75001 Paris',
         partaker: 16,
-        img: 'imgDefault.jpg',
+        img: require('../assets/imgDefault.jpg'),
         going: false,
         carPooling: true,
         },
@@ -24,111 +25,178 @@ const Covoiturage = ({}) => {
         date: 'date',
         address: '60128 Plailly',
         partaker: 24,
-        img: 'imgDefault.jpg',
+        img: require('../assets/asterix.jpg'),
         going: true,
         carPooling: false,
         },
         {
         id: 2,
-        name: 'Musee du Louvre',
+        name: 'Cathédrale Amiens',
         date: 'date',
-        address: 'rue de Rivoli, 75001 Paris',
+        address: '30 Place Notre Dame, 80000 Amiens',
         partaker: 16,
-        img: 'imgDefault.jpg',
+        img: require('../assets/cathedrale.jpg'),
         going: false,
         carPooling: true,
         },
         {
         id: 3,
-        name: 'Parc Asterix',
+        name: 'Hortillonnages',
         date: 'date',
-        address: '60128 Plailly',
+        address: '54 Bd de Beauvillé, 80000 Amiens',
         partaker: 24,
-        img: 'imgDefault.jpg',
+        img: require('../assets/hortillonnage.jpg'),
         going: true,
         carPooling: false,
         },
         {
         id: 4,
-        name: 'Musee du Louvre',
+        name: 'musée jules verne',
         date: 'date',
-        address: 'rue de Rivoli, 75001 Paris',
+        address: '2 Rue Charles Dubois, 80000 Amiens',
         partaker: 16,
-        img: 'imgDefault.jpg',
+        img: require('../assets/maison.jpg'),
         going: false,
         carPooling: true,
         },
         {
         id: 5,
-        name: 'Parc Asterix',
+        name: 'spectacle Chroma',
         date: 'date',
-        address: '60128 Plailly',
+        address: '30 Place Notre Dame, 80000 Amiens',
         partaker: 24,
-        img: 'imgDefault.jpg',
+        img: require('../assets/chroma.jpg'),
         going: true,
         carPooling: false,
         },
         {
         id: 6,
-        name: 'Musee du Louvre',
+        name: 'Musee de picardie',
         date: 'date',
-        address: 'rue de Rivoli, 75001 Paris',
+        address: '2 Rue Puvis de Chavannes, 80000 Amiens',
         partaker: 16,
-        img: 'imgDefault.jpg',
+        img: require('../assets/musée.jpg'),
         going: false,
         carPooling: true,
         },
         {
         id: 7,
-        name: 'Parc Asterix',
+        name: 'Beffroi',
         date: 'date',
-        address: '60128 Plailly',
+        address: '1 Place Maurice Vast, 80000 Amiens',
         partaker: 24,
-        img: 'imgDefault.jpg',
+        img: require('../assets/beffroi.jpg'),
         going: true,
         carPooling: false,
         },
         {
         id: 8,
-        name: 'Musee du Louvre',
+        name: 'quartier saint leu',
         date: 'date',
-        address: 'rue de Rivoli, 75001 Paris',
+        address: '80000',
         partaker: 16,
-        img: 'imgDefault.jpg',
+        img: require('../assets/saint-leu.jpg'),
         going: false,
         carPooling: true,
         },
         {
         id: 9,
-        name: 'Parc Asterix',
+        name: 'comédie de picardie',
         date: 'date',
-        address: '60128 Plailly',
+        address: ' 62 Rue des Jacobins, 80000 Amiens',
         partaker: 24,
-        img: 'imgDefault.jpg',
+        img: require('../assets/comédie.jpg'),
         going: true,
         carPooling: false,
         },
         {
         id: 10,
-        name: 'Musee du Louvre',
+        name: 'Zoo d amiens',
         date: 'date',
-        address: 'rue de Rivoli, 75001 Paris',
+        address: 'All. du Zoo, 80000 Amiens',
         partaker: 16,
-        img: 'imgDefault.jpg',
+        img: require('../assets/zoo.jpg'),
+        going: false,
+        carPooling: true,
+        }
+    ];
+
+    const CovoiturageDepart = [
+        {
+        id:0,
+        name:'Benard',
+        date:'date',
+        address:'5 place rené coty, 80000 Amiens',
+        partaker:5,
+        img: require('../assets/bernard.jpg'),
         going: false,
         carPooling: true,
         },
         {
-        id: 11,
-        name: 'Parc Asterix',
-        date: 'date',
-        address: '60128 Plailly',
-        partaker: 24,
-        img: 'imgDefault.jpg',
-        going: true,
-        carPooling: false,
-        }
-    ]
+        id:1,
+        name:'Jacky',
+        date:'date',
+        address:'5 place rené coty, 80000 Amiens',
+        partaker:5,
+        img: require('../assets/jacky.jpg'),
+        going: false,
+        carPooling: true,
+        },
+        {
+        id:2,
+        name:'René',
+        date:'date',
+        address:'5 place rené coty, 80000 Amiens',
+        partaker:5,
+        img: require('../assets/rené.jpg'),
+        going: false,
+        carPooling: true,
+        },
+        {
+        id:3,
+        name:'Jean-claude',
+        date:'date',
+        address:'5 place rené coty, 80000 Amiens',
+        partaker:2,
+        img: require('../assets/jcvd.jpg'),
+        going: false,
+        carPooling: true,
+        },
+        {
+        id:4,
+        name:'hubert',
+        date:'date',
+        address:'5 place rené coty, 80000 Amiens',
+        partaker:5,
+        img: require('../assets/hubert.jpg'),
+        going: false,
+        carPooling: true,
+        },
+        {
+        id:5,
+        name:'Bill',
+        date:'date',
+        address:'5 place rené coty, 80000 Amiens',
+        partaker:5,
+        img: require('../assets/bill.jpg'),
+        going: false,
+        carPooling: true,
+        },
+    ];
+
+    // const [searchedText, setSearchedText] = useState(null);
+
+    // const loadCovoiturage = (text) => {
+    //     if (searchedText !=null) {
+    //         if ( searchedText(text) === CovoiturageDepart.name){
+    //             console.log(item)
+    //         };
+    //     }
+    // }
+
+    // const searchTextInputChanged = (text) => {
+    //     setSearchedText(text) 
+    //   }
     
     
     return (
@@ -143,11 +211,17 @@ const Covoiturage = ({}) => {
             <View style={styles.containerList}>
             <List.Section>
                 <List.Accordion style={styles.accordion} title='Départ'>
-                    <List.Item />
                     <TextInput 
                     label="Je part de"
+                    onChangeText={(text) =>{searchTextInputChanged(text),loadCovoiturage(text) }}
                     />
-                    
+
+                    <FlatList
+                    data={CovoiturageDepart}
+                    keyExtractor={item => item.id}
+                    renderItem={({item}) => <CovoiturageItem item={item}/> }
+                    style={styles.flatList}
+                    />
 
                     
                 </List.Accordion>
@@ -155,18 +229,15 @@ const Covoiturage = ({}) => {
 
             <List.Section>
                 <List.Accordion style={styles.accordion} title='Arrivée'>
-                    <List.Item />
                     <TextInput 
                     label="Je vais à"
                     />
                     <FlatList
-                    data={CovoiturageData}
+                    data={CovoiturageArrive}
                     keyExtractor={item => item.id}
                     renderItem={({item}) => <CovoiturageItem item={item}/> }
                     style={styles.flatList}
                     />
-
-                    
                 </List.Accordion>
             </List.Section>
 
@@ -204,7 +275,7 @@ const styles = StyleSheet.create({
         fontSize:20,
     },
     flatList:{
-        height:275,
+        height:270,
     }
 })
 
