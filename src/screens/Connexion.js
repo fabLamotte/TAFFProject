@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform  } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
+import auth from '@react-native-firebase/auth'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -18,7 +19,14 @@ const loginValidationSchema = yup.object().shape({
         .required('Password is required'),
 })
 
-const Connexion = () => {
+const Connexion = (props) => {
+    const {
+        initialized,
+        setInitialized,
+        setUser
+    } = props
+
+    const [errorForm, setErrorForm] = useState("")
 
     const [hidePassword, setHidePassword] = useState(true)
     const iconName =
@@ -45,9 +53,33 @@ const Connexion = () => {
         }
     }
 
+    function onAuthStateChanged(user) {
+        setUser(user);
+        if (initialized) setInitialized(false);
+    }
+
+    const SignIn = (values) => {
+        auth()
+        .signInWithEmailAndPassword(values.email, values.password)
+        .then(() => {
+            console.log('Utilisateur connecté !')
+        })
+        .catch(error => {
+            if (error.code === 'auth/wrong-password') {
+                setErrorForm('Mot de passe incorrect !')
+            }
+
+            if (error.code === 'auth/user-not-found') {
+                setErrorForm('Adresse email inconnue !')
+            }
+        })
+    }
+
     useEffect(() => {
         getData()
-    })
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
+        return subscriber
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -55,7 +87,7 @@ const Connexion = () => {
             <Formik
                 validationSchema={loginValidationSchema}
                 initialValues={{ email: '', password: '' }}
-                onSubmit={values => onSignIn(values)}
+                onSubmit={values => SignIn(values)}
             >
                 {({ handleChange, handleBlur, handleSubmit, values }) => (
                     <View style={styles.form}>
