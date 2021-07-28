@@ -12,11 +12,21 @@ const RootNavigation = (props) => {
     //     userId
     // } = props
 
-    return userId?(
-        <AppNavigation />
-    ) : (
-        <AuthNavigation />
-    )
+    // return userId?(
+    //     <AppNavigation />
+    // ) : (
+    //     <AuthNavigation />
+    // )
+
+    if (userId == null) {
+        return (
+            <AuthNavigation />
+        )
+    } else {
+        return (
+            <AppNavigation />
+        )
+    }
 }
 
 export default RootNavigation
