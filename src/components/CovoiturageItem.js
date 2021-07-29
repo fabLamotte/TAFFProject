@@ -17,7 +17,7 @@ const CovoiturageItem = ({item}) => {
             </View>
 
             <View style={styles.textCovoiturage}>
-            <Text style={styles.title}>{item.name}</Text> 
+            <Text style={styles.title}>{item.name}</Text>
             <Text>{item.address}</Text>
             <Text style={styles.partaker}>{item.partaker}place</Text>
             
@@ -27,9 +27,7 @@ const CovoiturageItem = ({item}) => {
             <View
                 style={styles.iconsCar}>
                     
-    <Button style={{marginTop: 30}} onPress={showModal}>
-        Show
-      </Button>
+   
                 <Icon size={40} name='car'
                     color={ item.carPooling ? '#6D9953' : '#C4585B'}
                      />

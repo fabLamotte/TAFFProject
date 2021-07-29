@@ -1,9 +1,14 @@
 import React, { useState, useContext } from 'react'
-import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet, TextInput, TouchableOpacity, Text, Image } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
+import { Avatar } from 'react-native-paper';
+
 
 import { Formik } from 'formik'
 import * as yup from 'yup'
-import Icon from 'react-native-vector-icons/Ionicons'
+import Iconi from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 
@@ -65,8 +70,11 @@ const Inscriptions = () => {
     }
 
     return (
+        <LinearGradient colors={['#27ef9f', '#8DC56C']} style={styles.linearGradient}>
         <View style={styles.container}>
-            <Text>Inscription</Text>
+        <Icon name='compass-rose' size={150} color={'white'}/>
+
+            <Text style={styles.text}>Inscription:</Text>
             <Formik
                 validationSchema={loginValidationSchema}
                 initialValues={{ email: '', password: '', repeatedPassword: '' }}
@@ -74,6 +82,7 @@ const Inscriptions = () => {
             >
                 {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
                     <>
+                        
                         <View style={styles.input}>
                             <TextInput
                                 name="email"
@@ -100,7 +109,7 @@ const Inscriptions = () => {
                                 value={values.password}
                                 secureTextEntry={hidePassword}
                             />
-                            <Icon name={iconName} style={styles.icon} size={20} color='black' onPress={() => toggleShow()} />
+                            <Iconi name={iconName} style={styles.icon} size={20} color='black' onPress={() => toggleShow()} />
                         </View>
                         {errors.password && (
                             <View>
@@ -117,7 +126,7 @@ const Inscriptions = () => {
                                 value={values.repeatedPassword}
                                 secureTextEntry={hideRepeatedPassword}
                             />
-                            <Icon name={iconName} style={styles.icon} size={20} color='black' onPress={() => toggleShow()} />
+                            <Iconi name={iconName} style={styles.icon} size={20} color='black' onPress={() => toggleShow()} />
                         </View>
                         {errors.repeatedPassword && (
                             <View>
@@ -133,6 +142,8 @@ const Inscriptions = () => {
                 )}
             </Formik>
         </View>
+        </LinearGradient>
+
     )
 }
 
@@ -141,30 +152,45 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20
+        padding: 20,
     },
+    text:{
+        color:'white',
+        fontSize:40,
+    },
+ 
+    linearGradient: {
+        flex: 1,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 5
+      },
     input: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: 'black',
+        borderWidth: 3,
+        borderColor: 'white',
+        color:'white',
         width: '100%',
         paddingHorizontal: 15
     },
     textInput: {
         width: '80%',
+        
     },
     icon: {
         width: '20%',
-        textAlign: 'center'
+        textAlign: 'center',
+        color:'white',
     },
     button: {
-        backgroundColor: 'blue',
         padding: 20,
         borderRadius: 5,
         marginTop: 10,
-        width: 200
+        width:'100%',
+        borderWidth:5,
+        borderColor:'white',
     },
     textButton: {
         color: 'white',
@@ -172,8 +198,8 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     form: {
-        marginVertical: 20,
-        width: '100%'
+        marginVertical: 25,
+        width: '100%',
     },
     zoneSubmit: {
         width: '100%',

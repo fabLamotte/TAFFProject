@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform  } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform, Image  } from 'react-native'
+import Iconi from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+
 import auth from '@react-native-firebase/auth'
+import LinearGradient from 'react-native-linear-gradient'
+
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -82,8 +86,12 @@ const Connexion = (props) => {
     }, [])
 
     return (
+        <LinearGradient colors={['#27ef9f', '#8DC56C']} style={styles.linearGradient}>
+            {/* <Image source={require('../assets/compass.png')}/> */}
+            
         <View style={styles.container}>
-            <Text>Connexion</Text>
+        <Icon name='compass-rose' size={150} color={'white'}/>
+            <Text style={styles.text}>Connexion</Text>
             <Formik
                 validationSchema={loginValidationSchema}
                 initialValues={{ email: '', password: '' }}
@@ -112,7 +120,7 @@ const Connexion = (props) => {
                                 value={values.password}
                                 secureTextEntry={hidePassword}
                             />
-                            <Icon name={iconName} style={styles.icon} size={20} color='black' onPress={() => toggleShow()} />
+                            <Iconi name={iconName} style={styles.icon} size={20} color='black' onPress={() => toggleShow()} />
                         </View>
                         <View style={styles.zoneSubmit}>
                             <TouchableOpacity onPress={handleSubmit} title="Submit" style={styles.button}>
@@ -122,7 +130,10 @@ const Connexion = (props) => {
                     </View>
                 )}
             </Formik>
+
         </View>
+        </LinearGradient>
+
     )
 }
 
@@ -133,12 +144,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20
     },
+    logo:{
+        
+        height:200,
+        width:200,
+
+    },
+    linearGradient: {
+        flex: 1,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 5
+      },
+      text:{
+        color:'white',
+        fontSize:40,
+      },
     input: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: 'black',
+        borderWidth: 3,
+        borderColor: 'white',
         width: '100%',
         paddingHorizontal: 15
     },
@@ -147,14 +174,17 @@ const styles = StyleSheet.create({
     },
     icon: {
         width: '20%',
-        textAlign: 'center'
+        textAlign: 'center',
+        color:'white',
     },
     button: {
-        backgroundColor: 'blue',
         padding: 20,
         borderRadius: 5,
         marginTop: 10,
-        width:200
+        width:'100%',
+        borderWidth:5,
+        borderColor:'white',
+        
     },
     textButton: {
         color: 'white',
@@ -162,7 +192,7 @@ const styles = StyleSheet.create({
         textAlign:'center'
     },
     form:{
-        marginVertical:20,
+        marginVertical:25,
         width:'100%'
     },
     zoneSubmit:{
