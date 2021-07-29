@@ -9,6 +9,8 @@ const RootNavigation = () => {
     const [initialized, setInitialized] = useState(false)
     const data = {
         user:user,
+        lastname:"",
+        firstname:"",
         setUser:() => setUser()
     }
     

@@ -16,12 +16,6 @@ const Profil = ({navigation}) => {
     const [data, setData] = useState("")
     const [isLoading, setIsLoading] = useState(true)
 
-    const profilTest = {
-        avatar: 'string',
-        firstname: 'Fabien',
-        lastname: 'Lamotte'
-    }
-
     // Recherche en base de donnée firestore de l'utilisateur connecté
 
     const test = [
@@ -159,8 +153,8 @@ const Profil = ({navigation}) => {
         const userUid = auth().currentUser.uid
         const dataUSer = firestore().collection('users').doc(userUid).get()
             .then((doc) => setData(doc.data()))
-            setIsLoading(false)
-    }, [isLoading])
+        setIsLoading(false)
+    }, [])
 
 const renderItem =  ({item})  => (
     <View style={{width: '100%'}}>
@@ -193,11 +187,11 @@ const renderItem =  ({item})  => (
                     <Avatar.Icon size={60} icon='account' color='#8DC56C' style={{backgroundColor: '#fff'}}/>
                 </View>
                 <View style={styles.name}>
-                    <Title style={{fontSize: 30}}>{profilTest.firstname}</Title>
-                    <Title style={{fontSize: 30}}>{profilTest.lastname}</Title>
+                    <Title style={{fontSize: 30}}>{data.firstname}</Title>
+                    <Title style={{fontSize: 30}}>{data.lastname}</Title>
                 </View >
                 <TouchableOpacity style={styles.icon}
-                onPress={() => navigation.navigate('ParamsProfil', {profilTest})}>
+                onPress={() => navigation.navigate('ParamsProfil')}>
                     <Icon size={35} name='cog'/>
                 </TouchableOpacity>
             </View>
@@ -302,7 +296,6 @@ const styles = StyleSheet.create({
         height:50,
         justifyContent:'center',
         alignItems:'center',
-        marginVertical:5
     },
     buttonDisconnectText:{
         color:'white',

@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import auth from '@react-native-firebase/auth'
 import LinearGradient from 'react-native-linear-gradient'
+import { UserContext } from '../contexts/UserContext'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -29,6 +30,7 @@ const Connexion = (props) => {
         setUser
     } = props
 
+    const qsd = useContext(UserContext)
     const [errorForm, setErrorForm] = useState("")
 
     const [hidePassword, setHidePassword] = useState(true)
@@ -64,7 +66,7 @@ const Connexion = (props) => {
     const SignIn = (values) => {
         auth()
         .signInWithEmailAndPassword(values.email, values.password)
-        .then(() => {
+        .then((res) => {
             console.log('Utilisateur connecté !')
         })
         .catch(error => {
