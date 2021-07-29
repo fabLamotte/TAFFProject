@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import auth from '@react-native-firebase/auth'
 import LinearGradient from 'react-native-linear-gradient'
 
-
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Formik } from 'formik'

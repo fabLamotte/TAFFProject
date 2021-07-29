@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 
 import Map from './../screens/Map'
 import Covoiturage from './../screens/Covoiturage'
-import BottomTab from './../components/bottomTab'
+import BottomTab from './../components/BottomTab'
 import ProfilStackNav from './../navigation/ProfilStackNav'
 
 import { NavigationContainer } from '@react-navigation/native'

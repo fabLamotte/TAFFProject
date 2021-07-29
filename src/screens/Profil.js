@@ -1,13 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { Text, Title, Divider, Avatar, List } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { UserContext } from '../contexts/UserContext'
+import auth from '@react-native-firebase/auth'
 
 const Profil = ({navigation}) => {
     const [expandedA, setExpandedA] = useState(true);
     const [expandedB, setExpandedB] = useState(true);
     const handlePressA = () => setExpandedA(!expandedA);
     const handlePressB = () => setExpandedB(!expandedB);
+    const user = useContext(UserContext)
 
     const profilTest = {
         avatar: 'string',
@@ -138,6 +141,14 @@ const Profil = ({navigation}) => {
         }
     ]
 
+    const disconnect = () => {
+        auth()
+        .signOut()
+        .then(() => console.log('Utilisateur déconnecté'))
+        .catch((error) => console.log(error))
+        user.setUser(null)
+    }
+
 const renderItem =  ({item})  => (
     <View style={{width: '100%'}}>
         <View style={{flexDirection: 'row' }}>
@@ -154,7 +165,7 @@ const renderItem =  ({item})  => (
                 style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
                 <Icon size={40} name='car'
                     color={ item.carPooling ? '#6D9953' : '#C4585B'}
-                     />
+                />
             </View>
         </View>
     <Divider style={{marginTop: 5, marginBottom: 5}} />
@@ -175,6 +186,12 @@ const renderItem =  ({item})  => (
                 <TouchableOpacity style={styles.icon}
                 onPress={() => navigation.navigate('ParamsProfil', {profilTest})}>
                     <Icon size={35} name='cog'/>
+                </TouchableOpacity>
+            </View>
+            {/* Boutton de déconnexion */}
+            <View style={styles.disconnectView}>
+                <TouchableOpacity style={styles.buttonDisconnect} onPress={() => disconnect()}>
+                    <Text style={styles.buttonDisconnectText}>Déconnexion</Text>
                 </TouchableOpacity>
             </View>
             <List.Section style={{width: '100%'}}>
@@ -264,6 +281,21 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         marginTop: 5
     },
+    disconnectView:{
+        width:'100%'
+    },
+    buttonDisconnect:{
+        backgroundColor:'red',
+        height:50,
+        justifyContent:'center',
+        alignItems:'center',
+        marginVertical:5
+    },
+    buttonDisconnectText:{
+        color:'white',
+        fontWeight:'bold',
+        fontSize:15
+    }
 })
 
 export default Profil
