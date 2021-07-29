@@ -10,6 +10,7 @@ const BottomTab = (props) => {
     } = props
     
     return(
+        
         <View style={styles.container}>
             {state.routes.map((route, index) => {
                 const {options} = descriptors[route.key];
