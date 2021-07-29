@@ -52,7 +52,7 @@ const Map = () => {
 //     )
 // }
 
-const MapAnnotation = () => {
+const MapAnnotation = ({item}) => {
 return (
     <MapboxGL.PointAnnotation
     id={item.id}
