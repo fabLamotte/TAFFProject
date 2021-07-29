@@ -1,9 +1,11 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { Text, Title, Divider, Avatar, List } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { UserContext } from '../contexts/UserContext'
+
 import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore'
 
 const Profil = ({navigation}) => {
     const [expandedA, setExpandedA] = useState(true);
@@ -11,12 +13,16 @@ const Profil = ({navigation}) => {
     const handlePressA = () => setExpandedA(!expandedA);
     const handlePressB = () => setExpandedB(!expandedB);
     const user = useContext(UserContext)
+    const [data, setData] = useState("")
+    const [isLoading, setIsLoading] = useState(true)
 
     const profilTest = {
         avatar: 'string',
         firstname: 'Fabien',
         lastname: 'Lamotte'
     }
+
+    // Recherche en base de donnée firestore de l'utilisateur connecté
 
     const test = [
         {
@@ -148,6 +154,13 @@ const Profil = ({navigation}) => {
         .catch((error) => console.log(error))
         user.setUser(null)
     }
+
+    useEffect(() => {
+        const userUid = auth().currentUser.uid
+        const dataUSer = firestore().collection('users').doc(userUid).get()
+            .then((doc) => setData(doc.data()))
+            setIsLoading(false)
+    }, [isLoading])
 
 const renderItem =  ({item})  => (
     <View style={{width: '100%'}}>

@@ -42,7 +42,6 @@ const Inscriptions = () => {
     }
 
     const AddUser = async (values) => {
-        
         // Ajout de l'utilisateur dans l'application
         const user = auth()
             .createUserWithEmailAndPassword(values.email, values.password)
@@ -50,7 +49,8 @@ const Inscriptions = () => {
                 // Ajout du document de l'utilisateur dans la collection user
                 firestore().collection('users').doc(auth().currentUser.uid).set({
                     email: response.user.email,
-                    activity: []
+                    firstname: values.firstname,
+                    lastname:values.lastname
                 })
                     .then(() => {
                     })
@@ -77,7 +77,7 @@ const Inscriptions = () => {
             <Text style={styles.text}>Inscription:</Text>
             <Formik
                 validationSchema={loginValidationSchema}
-                initialValues={{ email: '', password: '', repeatedPassword: '' }}
+                initialValues={{ email: '', password: '', repeatedPassword: '', firstname:'', lastname:'' }}
                 onSubmit={values => AddUser(values)}
             >
                 {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
@@ -99,6 +99,30 @@ const Inscriptions = () => {
                                 <Text>{errors.email?.message}</Text>
                             </View>
                         )}
+                        <View style={{flexDirection:'row', justifyContent:'center', alignItems:'center', width:'100%'}}>
+                            <View style={[styles.input, {width:'50%'}]}>
+                                <TextInput
+                                    name="firstname"
+                                    placeholder="Prénom"
+                                    style={styles.textInput}
+                                    onChangeText={handleChange('firstname')}
+                                    onBlur={handleBlur('firstname')}
+                                    value={values.firstname}
+                                    keyboardType="default"
+                                />
+                            </View>
+                            <View style={[styles.input, {width:'50%'}]}>
+                                <TextInput
+                                    name="lastname"
+                                    placeholder="Nom"
+                                    style={styles.textInput}
+                                    onChangeText={handleChange('lastname')}
+                                    onBlur={handleBlur('lastname')}
+                                    value={values.lastname}
+                                    keyboardType="default"
+                                />
+                            </View>
+                        </View>
                         <View style={styles.input}>
                             <TextInput
                                 name="password"
@@ -173,7 +197,8 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         color:'white',
         width: '100%',
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        marginVertical:2
     },
     textInput: {
         width: '80%',
