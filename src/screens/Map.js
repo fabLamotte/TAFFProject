@@ -65,7 +65,6 @@ return (
 )
 }
 
-
     return (
         <View style={styles.container}>
             <MapboxGL.MapView localizeLabels={true} style={styles.map} centerCoordinate={[lonData, latData]} >
